@@ -20,9 +20,13 @@ const GroupedBarChart: React.FC = () => {
   useEffect(() => {
     if (!svgRef.current) return;
 
-    const width = 500;
-    const height = 300;
-    const margin = { top: 30, right: 30, bottom: 50, left: 50 };
+    // Get container size dynamically
+    const container = svgRef.current.parentElement;
+    const containerWidth = container ? container.clientWidth : 600;
+    const containerHeight = container ? container.clientHeight : 400;
+    const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+    const width = containerWidth - margin.left - margin.right;
+    const height = containerHeight - margin.top - margin.bottom;
 
     // Clear previous SVG content
     d3.select(svgRef.current).selectAll("*").remove();
@@ -87,7 +91,7 @@ const GroupedBarChart: React.FC = () => {
 
   }, []);
 
-  return <svg ref={svgRef}></svg>;
+  return <svg ref={svgRef} width="100%" height="100%"></svg>;
 };
 
 export default GroupedBarChart;
